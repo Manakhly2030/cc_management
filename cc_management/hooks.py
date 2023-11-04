@@ -1,9 +1,9 @@
 app_name = "cc_management"
 app_title = "Credit Card Management"
-app_publisher = "Agile Shift I/O"
+app_publisher = "Agile Shift"
 app_description = "Credit Card Utils"
 app_email = "contacto@gruporeal.org"
-app_license = "mit"
+app_license = "MIT"
 # required_apps = []
 
 # Includes in <head>
@@ -219,3 +219,5 @@ app_license = "mit"
 # auth_hooks = [
 #	"cc_management.auth.validate"
 # ]
+
+export_python_type_annotations = True

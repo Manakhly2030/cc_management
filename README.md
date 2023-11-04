@@ -4,4 +4,4 @@ Credit Card Utils
 
 #### License
 
-mit
+MIT

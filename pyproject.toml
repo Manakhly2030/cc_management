@@ -1,12 +1,16 @@
 [project]
 name = "cc_management"
-authors = [
-    { name = "Agile Shift I/O", email = "contacto@gruporeal.org"}
-]
 description = "Credit Card Utils"
-requires-python = ">=3.10"
+authors = [
+    { name = "Agile Shift", email = "contacto@gruporeal.org" }
+]
+
+requires-python = ">=3.12"
+
 readme = "README.md"
+license = { file = "LICENSE.txt" }
 dynamic = ["version"]
+
 dependencies = [
     # "frappe~=15.0.0" # Installed and managed by bench.
 ]
@@ -15,6 +19,5 @@ dependencies = [
 requires = ["flit_core >=3.4,<4"]
 build-backend = "flit_core.buildapi"
 
-# These dependencies are only installed when developer mode is enabled
 [tool.bench.dev-dependencies]
 # package_name = "~=1.1.0"

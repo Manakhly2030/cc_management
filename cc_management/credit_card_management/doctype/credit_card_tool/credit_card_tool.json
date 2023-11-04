@@ -1,0 +1,85 @@
+{
+ "actions": [],
+ "allow_copy": 1,
+ "creation": "2023-11-02 17:48:39.644832",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "amount",
+  "column_break_ivhe",
+  "date",
+  "section_break_wgmk",
+  "credit_cards",
+  "section_break_ydfk",
+  "results"
+ ],
+ "fields": [
+  {
+   "fieldname": "credit_cards",
+   "fieldtype": "Table",
+   "options": "Credit Card",
+   "reqd": 1
+  },
+  {
+   "description": "make virtual",
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "non_negative": 1,
+   "precision": "2"
+  },
+  {
+   "description": "make virtual",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date to Use",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ivhe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_wgmk",
+   "fieldtype": "Section Break",
+   "label": "Credit Cards"
+  },
+  {
+   "fieldname": "results",
+   "fieldtype": "HTML",
+   "is_virtual": 1
+  },
+  {
+   "fieldname": "section_break_ydfk",
+   "fieldtype": "Section Break",
+   "label": "Payment Dates"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-11-03 01:02:59.599911",
+ "modified_by": "Administrator",
+ "module": "Credit Card Management",
+ "name": "Credit Card Tool",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Desk User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
