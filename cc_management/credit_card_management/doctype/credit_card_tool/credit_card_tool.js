@@ -2,12 +2,10 @@ frappe.ui.form.on("Credit Card Tool", {
 
 	setup(frm) {
 		frm.page.sidebar.toggle(false); // Hide Sidebar
-		$('html, body, #page-Credit\\ Card\\ Tool, .page-head, header.navbar').css('background', 'black');
-		$('div.form-page').css('background', 'black');
 	},
 
 	refresh(frm) {
-		frm.events.calculate_virtual_fields(frm); // const capable_cards = frm.doc.credit_cards.filter(card => card.credit_limit >= frm.doc.amount);
+		frm.events.calculate_virtual_fields(frm); // TODO: const capable_cards = frm.doc.credit_cards.filter(card => card.credit_limit >= frm.doc.amount);
 
 		const format_as_counter = (date) => {
 			const diff_days = moment(date).diff(moment().startOf('day'), 'days');
@@ -26,6 +24,7 @@ frappe.ui.form.on("Credit Card Tool", {
 			]
 		});
 
+		// TODO: Color Row based on inputs!
 		//datatable.style.setStyle(`.dt-row-0 > .dt-cell`, {'background-color': 'red !important'});
 	},
 
@@ -47,4 +46,3 @@ frappe.ui.form.on("Credit Card Tool", {
 		});
 	}
 });
-// 68 Not working!
