@@ -12,8 +12,10 @@
   "date",
   "section_break_wgmk",
   "credit_cards",
-  "section_break_ydfk",
-  "results"
+  "section_payment_dates",
+  "payment_tables",
+  "section_points",
+  "points_table"
  ],
  "fields": [
   {
@@ -49,19 +51,29 @@
    "label": "Credit Cards"
   },
   {
-   "fieldname": "results",
-   "fieldtype": "HTML",
-   "is_virtual": 1
-  },
-  {
-   "fieldname": "section_break_ydfk",
+   "fieldname": "section_payment_dates",
    "fieldtype": "Section Break",
    "label": "Payment Dates"
+  },
+  {
+   "fieldname": "payment_tables",
+   "fieldtype": "HTML"
+  },
+  {
+   "collapsible": 1,
+   "collapsible_depends_on": "credit_cards",
+   "fieldname": "section_points",
+   "fieldtype": "Section Break",
+   "label": "Point Calculator"
+  },
+  {
+   "fieldname": "points_table",
+   "fieldtype": "HTML"
   }
  ],
  "issingle": 1,
  "links": [],
- "modified": "2023-11-03 01:02:59.599911",
+ "modified": "2023-11-06 13:56:48.523773",
  "modified_by": "Administrator",
  "module": "Credit Card Management",
  "name": "Credit Card Tool",

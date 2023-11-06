@@ -12,6 +12,7 @@ class CreditCard(Document):
 
 		bank: DF.Data | None
 		card_name: DF.Data
+		company: DF.Data | None
 		credit_limit: DF.Currency
 		cut_off_day: DF.Int
 		days_to_pay: DF.Int
