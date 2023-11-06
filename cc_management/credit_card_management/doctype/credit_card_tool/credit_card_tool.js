@@ -1,11 +1,11 @@
-const format_as_counter = (date) => {
+const format_as_countdown = (date) => {
 	const diff_days = moment(date).diff(moment().startOf('day'), 'days');  // TODO: Change this to calculate_virtual_fields
 
 	// acts like a moment().calendar()
 	if (diff_days === 0) {
-		return `<b>Today</b>`;
+		return `<b>Hoy</b>`;
 	} else if (diff_days === 1) {
-		return `<b>Tomorrow</b>`;
+		return `<b>Mañana</b>`;
 	} else {
 		let color = (diff_days <= 10) ? 'darkred' : (diff_days <= 15) ? 'orange' : (diff_days <= 25) ? 'blue' : 'green';
 
@@ -13,7 +13,7 @@ const format_as_counter = (date) => {
 	}
 };
 
-const format_currency = (value) => frappe.form.formatters.Currency(value, {}, {only_value: true});
+const format_currency = (value, precision) => frappe.form.formatters.Currency(value, {precision: precision}, {only_value: true});
 
 frappe.ui.form.on("Credit Card Tool", {
 
@@ -71,15 +71,16 @@ frappe.ui.form.on("Credit Card Tool", {
 				columns: [
 					{id: 'bank', name: 'Banco', editable: false, dropdown: false, align: 'center'},
 					{id: 'card_name', name: 'Tarjeta', editable: false, dropdown: false, align: 'center', format: (val) => `<b>${val}</b>`},
+					{id: 'credit_limit', name: 'Limite', editable: false, align: 'center', format: (val) => format_currency(val, 0)},
 					{id: 'cut_off_date', name: 'Fecha de Corte', editable: false, format: (val) => moment(val).format('dddd D, MMMM')},
-					{id: 'cut_off_date', name: 'Dias para el Corte', editable: false, align: 'center', format: format_as_counter},
+					{id: 'cut_off_date', name: 'Dias para el Corte', editable: false, align: 'center', format: format_as_countdown},
 					{id: 'pay_day_date', name: 'Fecha de Pago', editable: false, format: (val) => moment(val).format('dddd D, MMMM')},
-					{id: 'pay_day_date', name: 'Dias para el Pago', editable: false, align: 'center', format: format_as_counter},
+					{id: 'pay_day_date', name: 'Dias para el Pago', editable: false, align: 'center', format: format_as_countdown}
 				]
 			});
 
 			// TODO: Color Row based on inputs!
-			datatable.sortColumn('5', 'desc'); // Sort by Days until pay_day_date
+			datatable.sortColumn('7', 'desc'); // Sort by Days until pay_day_date
 		});
 	},
 
@@ -96,7 +97,7 @@ frappe.ui.form.on("Credit Card Tool", {
 					{id: 'card_name', name: 'Tarjeta', editable: false, dropdown: false, align: 'center', format: (val) => `<b>${val}</b>`},
 					{id: 'points', name: 'Puntos', editable: false, align: 'center', format: (val) => frappe.form.formatters.Float(val, {}, {only_value: true})},
 					{id: 'points', name: 'Puntos - 0.005', editable: false, align: 'center', format: (val) => format_currency(val * 0.005)},
-					{id: 'points', name: 'Puntos - 0.0012', editable: false, align: 'center', format: (val) => format_currency(val * 0.012)}
+					{id: 'points', name: 'Puntos - 0.012', editable: false, align: 'center', format: (val) => format_currency(val * 0.012)}
 				]
 			});
 
@@ -104,4 +105,3 @@ frappe.ui.form.on("Credit Card Tool", {
 		});
 	}
 });
-// 90
