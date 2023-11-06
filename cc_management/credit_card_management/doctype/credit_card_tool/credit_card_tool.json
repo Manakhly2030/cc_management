@@ -51,6 +51,8 @@
    "label": "Credit Cards"
   },
   {
+   "collapsible": 1,
+   "collapsible_depends_on": "credit_cards",
    "fieldname": "section_payment_dates",
    "fieldtype": "Section Break",
    "label": "Payment Dates"
@@ -73,7 +75,7 @@
  ],
  "issingle": 1,
  "links": [],
- "modified": "2023-11-06 13:56:48.523773",
+ "modified": "2023-11-06 14:07:15.281472",
  "modified_by": "Administrator",
  "module": "Credit Card Management",
  "name": "Credit Card Tool",
