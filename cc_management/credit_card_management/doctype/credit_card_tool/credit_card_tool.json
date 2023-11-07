@@ -15,7 +15,7 @@
   "section_payment_dates",
   "payment_tables",
   "section_points",
-  "points_table"
+  "point_tables"
  ],
  "fields": [
   {
@@ -69,13 +69,13 @@
    "label": "Point Calculator"
   },
   {
-   "fieldname": "points_table",
+   "fieldname": "point_tables",
    "fieldtype": "HTML"
   }
  ],
  "issingle": 1,
  "links": [],
- "modified": "2023-11-06 14:07:15.281472",
+ "modified": "2023-11-06 16:27:34.905189",
  "modified_by": "Administrator",
  "module": "Credit Card Management",
  "name": "Credit Card Tool",

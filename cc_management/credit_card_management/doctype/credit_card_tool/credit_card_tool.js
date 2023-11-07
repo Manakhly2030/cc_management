@@ -1,4 +1,6 @@
 const format_as_countdown = (date) => {
+	if (!date) return '';
+
 	const diff_days = moment(date).diff(moment().startOf('day'), 'days');  // TODO: Change this to calculate_virtual_fields
 
 	// acts like a moment().calendar()
@@ -52,56 +54,52 @@ frappe.ui.form.on("Credit Card Tool", {
 		});
 	},
 
-	create_table_wrapper(table_id, table_name, table_wrapper)  {
-		return $(`
-			<div id="${table_id}-${table_name}" class="mb-5">
-				<h5 class="ellipsis title-text center-content">${table_name}</h5>
-				<div class="dt-table"></div>
-			</div>
-		`).appendTo(table_wrapper).find('.dt-table')[0]; // Create Table Wrapper, append to Main Wrapper and return the table
-	},
-
-	create_payment_table(frm) {
-		let table_field_wrapper = frm.fields_dict['payment_tables'].$wrapper.empty()[0]; // Clear Tables and return the .wrapper
+	create_table(frm, html_field, table_id, columns, sort, show_total = true) {
+		frm.fields_dict[html_field].$wrapper.empty();
 
 		Object.keys(frm.doc.gruped_cards).forEach((company) => {
-			let datatable = new DataTable(frm.events.create_table_wrapper('PaymentTable', company, table_field_wrapper), {
+			let table_wrapper = $(`
+				<div id="${table_id}-${company}" class="mb-5">
+					<h5 class="ellipsis title-text center-content">${company}</h5>
+					<div class="dt-table"></div>
+				</div>
+			`).appendTo(frm.fields_dict[html_field].wrapper).find('.dt-table')[0]; // Create Table Wrapper, append to Main Wrapper and return the table
+
+			let datatable = new DataTable(table_wrapper, {
 				layout: 'fluid',
-				data: frm.doc.gruped_cards[company],
-				columns: [
-					{id: 'bank', name: 'Banco', editable: false, dropdown: false, align: 'center'},
-					{id: 'card_name', name: 'Tarjeta', editable: false, dropdown: false, align: 'center', format: (val) => `<b>${val}</b>`},
-					{id: 'credit_limit', name: 'Limite', editable: false, align: 'center', format: (val) => format_currency(val, 0)},
-					{id: 'cut_off_date', name: 'Fecha de Corte', editable: false, format: (val) => moment(val).format('dddd D, MMMM')},
-					{id: 'cut_off_date', name: 'Dias para el Corte', editable: false, align: 'center', format: format_as_countdown},
-					{id: 'pay_day_date', name: 'Fecha de Pago', editable: false, format: (val) => moment(val).format('dddd D, MMMM')},
-					{id: 'pay_day_date', name: 'Dias para el Pago', editable: false, align: 'center', format: format_as_countdown}
-				]
+				showTotalRow: show_total, hooks: {columnTotal: frappe.utils.report_column_total},
+				columns: columns, data: frm.doc.gruped_cards[company],
 			});
 
 			// TODO: Color Row based on inputs!
-			datatable.sortColumn('7', 'desc'); // Sort by Days until pay_day_date
+			if (sort) datatable.sortColumn(...sort);
 		});
 	},
 
+	create_payment_table(frm) {
+		const defaultColObj = {editable: false, align: 'center'};
+
+		frm.events.create_table(frm, 'payment_tables', 'PaymentTable',[
+			{...defaultColObj, id: 'bank', name: 'Banco'},
+			{...defaultColObj, id: 'card_name', name: 'Tarjeta', format: (val) => `<b>${val || ''}</b>`, dropdown: false},
+			{...defaultColObj, id: 'credit_limit', name: 'Limite', format: (val) => format_currency(val, 0), disable_total: false},
+			{...defaultColObj, id: 'cut_off_date', name: 'Fecha de Corte', format: (val) => val ? moment(val).format('dddd D, MMMM') : ''},
+			{...defaultColObj, id: 'cut_off_date', name: 'Dias para el Corte', format: format_as_countdown},
+			{...defaultColObj, id: 'pay_day_date', name: 'Fecha de Pago', format: (val) => val ? moment(val).format('dddd D, MMMM') : ''},
+			{...defaultColObj, id: 'pay_day_date', name: 'Dias para el Pago', format: format_as_countdown},
+		], ['7', 'desc']); // Sort by Days until pay_day_date
+	},
+
 	create_points_table(frm) {
-		let table_field_wrapper = frm.fields_dict['points_table'].$wrapper.empty()[0]; // Clear Tables and return the .wrapper
+		const defaultColObj = {editable: false, align: 'center'};
 
 		// TODO: Make the point table more dynamic
-		Object.keys(frm.doc.gruped_cards).forEach((company) => {
-			let datatable = new DataTable(frm.events.create_table_wrapper('PointTable', company, table_field_wrapper), {
-				layout: 'fluid',
-				data: frm.doc.gruped_cards[company],
-				columns: [
-					{id: 'bank', name: 'Banco', editable: false, dropdown: false, align: 'center'},
-					{id: 'card_name', name: 'Tarjeta', editable: false, dropdown: false, align: 'center', format: (val) => `<b>${val}</b>`},
-					{id: 'points', name: 'Puntos', editable: false, align: 'center', format: (val) => frappe.form.formatters.Float(val, {}, {only_value: true})},
-					{id: 'points', name: 'Puntos - 0.005', editable: false, align: 'center', format: (val) => format_currency(val * 0.005)},
-					{id: 'points', name: 'Puntos - 0.012', editable: false, align: 'center', format: (val) => format_currency(val * 0.012)}
-				]
-			});
-
-			datatable.sortColumn('3', 'desc');
-		});
+		frm.events.create_table(frm, 'point_tables', 'PointTable', [
+			{...defaultColObj, id: 'bank', name: 'Banco'},
+			{...defaultColObj, id: 'card_name', name: 'Tarjeta', dropdown: false, format: (val) => `<b>${val || ''}</b>`},
+			{...defaultColObj, id: 'points', name: 'Puntos', format: (val) => frappe.form.formatters.Float(val, {}, {only_value: true})},
+			{...defaultColObj, id: 'points', name: 'Puntos - 0.005', format: (val) => format_currency(val * 0.005)},
+			{...defaultColObj, id: 'points', name: 'Puntos - 0.012', format: (val) => format_currency(val * 0.012)}
+		], ['3', 'desc'], false);
 	}
 });
