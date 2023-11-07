@@ -36,15 +36,17 @@ frappe.ui.form.on("Credit Card Tool", {
 		// TODO: Calculate here if the card is capable(is amount used is less than amount available)
 		frm.doc.credit_cards.forEach(card => {
 			// TODO: Calculate here the days_until_cut and days_until_pay. not in the format function
-			let cut_off_date = moment().date(card.cut_off_day); // Set the cuf_off_date to the right day
-			let pay_day_date = moment().date(card.pay_day);     // Set the pay_day_date to the right day
+			// TODO: Calculate if payment is on weekend and add days to weekday
+			let cut_off_date = moment().date(card.cut_off_day);
+			let pay_day_date = moment().date(card.pay_day);
 
-			if (card.cut_off_day < moment().date()) { // Check if today is after the cut_off_day
+			if (moment().date() > card.cut_off_day) { // Check if today.date is greater than cut_off_day
 				cut_off_date.add(1, 'months');
+				pay_day_date.add(1, 'months'); // TODO: This can totally improve: pay_date is cut_off_date + days_to_pay
 			}
 
-			if (pay_day_date <= cut_off_date) {
-				pay_day_date.add(1, 'months');
+			if (cut_off_date >= pay_day_date) {
+				pay_day_date.add(1, 'months');  //=DATE(YEAR(F8), MONTH(F8)+ IF(DAY(F8)>=D8, 1, 0), D8)
 			}
 
 			// Format Using frappe.defaultDateFormat. This way we can sort in tables
