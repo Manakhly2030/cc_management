@@ -46,7 +46,7 @@ frappe.ui.form.on("Credit Card Tool", {
 			}
 
 			if (cut_off_date >= pay_day_date) {
-				pay_day_date.add(1, 'months');  //=DATE(YEAR(F8), MONTH(F8)+ IF(DAY(F8)>=D8, 1, 0), D8)
+				pay_day_date.add(1, 'months');
 			}
 
 			// Format Using frappe.defaultDateFormat. This way we can sort in tables
