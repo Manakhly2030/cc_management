@@ -1,5 +1,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestCreditCardTool(FrappeTestCase):
+class TestCreditCard(FrappeTestCase):
 	pass

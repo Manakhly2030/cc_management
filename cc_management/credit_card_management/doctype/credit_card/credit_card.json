@@ -1,20 +1,30 @@
 {
  "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{card-name} - {last_digits}",
  "creation": "2023-11-02 17:47:35.291196",
+ "default_view": "List",
  "doctype": "DocType",
- "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "bank",
-  "company",
+  "section_break_tkpj",
   "card_name",
+  "last_digits",
+  "company",
+  "bank",
+  "column_break_xwti",
   "credit_limit",
   "cut_off_day",
-  "pay_day",
   "days_to_pay",
+  "pay_day",
+  "column_break_icqm",
+  "points",
+  "section_break_jsus",
+  "cut_off_date",
+  "pay_date",
+  "tab_membership",
   "expiry_date",
-  "membership_bill_month",
-  "points"
+  "membership_bill_month"
  ],
  "fields": [
   {
@@ -34,15 +44,6 @@
    "label": "Credit Limit",
    "non_negative": 1,
    "precision": "0",
-   "reqd": 1
-  },
-  {
-   "columns": 1,
-   "fieldname": "cut_off_day",
-   "fieldtype": "Int",
-   "in_list_view": 1,
-   "label": "Cut Off Day",
-   "non_negative": 1,
    "reqd": 1
   },
   {
@@ -68,6 +69,7 @@
    "fieldname": "bank",
    "fieldtype": "Data",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Bank"
   },
   {
@@ -100,19 +102,90 @@
    "fieldname": "company",
    "fieldtype": "Data",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Owner"
+  },
+  {
+   "fieldname": "column_break_xwti",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_icqm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "last_digits",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Last 4 Digits",
+   "length": 4,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_jsus",
+   "fieldtype": "Section Break",
+   "label": "Virtual Results"
+  },
+  {
+   "columns": 1,
+   "fieldname": "cut_off_day",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Cut Off Day",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "cut_off_date",
+   "fieldtype": "Date",
+   "is_virtual": 1,
+   "label": "cut_off_date"
+  },
+  {
+   "fieldname": "pay_date",
+   "fieldtype": "Date",
+   "is_virtual": 1,
+   "label": "pay_day_date"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_tkpj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tab_membership",
+   "fieldtype": "Tab Break",
+   "label": "Membership"
   }
  ],
  "index_web_pages_for_search": 1,
- "istable": 1,
  "links": [],
- "modified": "2023-11-04 16:13:53.238682",
+ "modified": "2024-09-20 23:54:20.244266",
  "modified_by": "Administrator",
  "module": "Credit Card Management",
  "name": "Credit Card",
+ "naming_rule": "Expression",
  "owner": "Administrator",
- "permissions": [],
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "card_name,last_digits",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "card_name",
+ "track_changes": 1
 }
