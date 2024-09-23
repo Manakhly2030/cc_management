@@ -35,7 +35,7 @@ frappe.pages['credit-card-tool'].on_page_load = function(wrapper) {
 	page.$sidebar_list.on('click', 'li', (e) => {
 		page.$sidebar_list.find('li').toggleClass('active selected');
 		page.main.find('.table-page').toggleClass('hidden');
-		datatables.forEach(table => table.refresh()); // FIXME: Little Hack to resize on hidden tables
+		datatables.forEach(table => table.render()); // FIXME: Little Hack to resize on hidden tables
 	})
 
 	frappe.db.get_list('Credit Card', {
